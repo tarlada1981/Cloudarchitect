@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Principal Cloud Architect — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:       #080c10;
+    --bg2:      #0d1117;
+    --surface:  #111822;
+    --border:   #1e2b3c;
+    --accent:   #00d4ff;
+    --accent2:  #0055ff;
+    --gold:     #f5a623;
+    --text:     #e8edf3;
+    --muted:    #6b7a90;
+    --green:    #00e5a0;
+    --card-bg:  #0f1923;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 60px;
+    background: rgba(8,12,16,.92);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 15px;
+    letter-spacing: .08em; color: var(--accent);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 12px;
+    letter-spacing: .1em; text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 100px 80px 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero-inner {
+    display: flex; align-items: center; gap: 80px;
+    position: relative; z-index: 1;
+  }
+  .hero-content { flex: 1; min-width: 0; }
+  .hero-photo-col {
+    flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 16px;
+  }
+  .photo-frame {
+    width: 220px; height: 260px;
+    border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    background: var(--card-bg);
+    transition: border-color .3s;
+  }
+  .photo-frame:hover { border-color: var(--accent); }
+  .photo-frame img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .photo-corner {
+    position: absolute;
+    width: 12px; height: 12px;
+    border-color: var(--accent);
+    border-style: solid;
+    opacity: .5;
+  }
+  .photo-corner.tl { top: 6px; left: 6px; border-width: 1px 0 0 1px; }
+  .photo-corner.tr { top: 6px; right: 6px; border-width: 1px 1px 0 0; }
+  .photo-corner.bl { bottom: 6px; left: 6px; border-width: 0 0 1px 1px; }
+  .photo-corner.br { bottom: 6px; right: 6px; border-width: 0 1px 1px 0; }
+  .photo-caption {
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); text-align: center;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,85,255,.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 70%, rgba(0,212,255,.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-label {
+    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-label::before {
+    content: ''; width: 32px; height: 1px; background: var(--accent);
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(40px, 6vw, 88px);
+    font-weight: 800; line-height: 1.0;
+    letter-spacing: -.02em;
+    color: var(--text); margin-bottom: 28px;
+  }
+  h1 span { color: var(--accent); }
+  .hero-sub {
+    max-width: 600px; color: var(--muted);
+    font-size: 14px; line-height: 1.8; margin-bottom: 48px;
+  }
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px; font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all .25s;
+  }
+  .btn-primary {
+    background: var(--accent); color: #000;
+  }
+  .btn-primary:hover { background: #fff; }
+  .btn-outline {
+    background: transparent; color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .btn-outline:hover { background: rgba(0,212,255,.1); }
+
+  .hero-stats {
+    display: flex; gap: 48px; margin-top: 64px;
+    padding-top: 48px; border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .stat-item { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800;
+    color: var(--accent); line-height: 1;
+  }
+  .stat-label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+  /* grid lines background */
+  .grid-bg {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: .25;
+    mask-image: radial-gradient(ellipse 80% 80% at center, black 30%, transparent 80%);
+  }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 100px 80px; position: relative; }
+  .section-header { margin-bottom: 64px; }
+  .section-tag {
+    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-tag::before { content: '//'; color: var(--muted); }
+  h2 {
+    font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800; color: var(--text);
+  }
+
+  /* ── COMPETENCIES ── */
+  #competencies { background: var(--bg2); }
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .comp-card {
+    background: var(--card-bg);
+    padding: 32px;
+    transition: background .2s;
+  }
+  .comp-card:hover { background: var(--surface); }
+  .comp-icon {
+    font-size: 24px; margin-bottom: 16px;
+  }
+  .comp-title {
+    font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+    color: var(--accent); margin-bottom: 8px; letter-spacing: .04em;
+  }
+  .comp-desc { font-size: 12px; color: var(--muted); line-height: 1.8; }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--bg); }
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .tl-item {
+    position: relative; margin-bottom: 56px; padding-left: 28px;
+  }
+  .tl-item::before {
+    content: ''; position: absolute; left: -36px; top: 6px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 12px var(--accent);
+  }
+  .tl-meta {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .tl-period {
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent); background: rgba(0,212,255,.08);
+    padding: 3px 10px; border: 1px solid rgba(0,212,255,.2);
+  }
+  .tl-company {
+    font-size: 11px; letter-spacing: .08em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .tl-role {
+    font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700;
+    color: var(--text); margin-bottom: 16px;
+  }
+  .tl-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .tl-bullets li {
+    font-size: 13px; color: var(--muted); padding-left: 18px; position: relative;
+    line-height: 1.7;
+  }
+  .tl-bullets li::before {
+    content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 12px;
+  }
+  .tl-bullets li strong { color: var(--text); font-weight: 500; }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg2); }
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .proj-card {
+    background: var(--card-bg); padding: 36px;
+    transition: background .2s; cursor: default;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .proj-card:hover { background: var(--surface); }
+  .proj-num {
+    font-size: 11px; color: var(--muted); letter-spacing: .1em;
+  }
+  .proj-title {
+    font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700;
+    color: var(--text);
+  }
+  .proj-desc { font-size: 12px; color: var(--muted); line-height: 1.8; flex: 1; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag {
+    font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    padding: 2px 8px;
+    border: 1px solid var(--border); color: var(--muted);
+  }
+  .tag.hi { border-color: rgba(0,212,255,.3); color: var(--accent); }
+
+  /* ── CERTIFICATIONS ── */
+  #certifications { background: var(--bg); }
+  .cert-grid {
+    display: flex; gap: 24px; flex-wrap: wrap;
+  }
+  .cert-card {
+    flex: 1 1 260px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 32px;
+    transition: border-color .2s, background .2s;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .cert-card:hover { border-color: var(--accent); background: var(--surface); }
+  .cert-badge {
+    font-size: 28px; margin-bottom: 4px;
+  }
+  .cert-name {
+    font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+    color: var(--text);
+  }
+  .cert-issuer { font-size: 11px; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; }
+
+  /* ── EDUCATION ── */
+  #education { background: var(--bg2); }
+  .edu-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .edu-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    padding: 32px; transition: border-color .2s;
+  }
+  .edu-card:hover { border-color: var(--accent); }
+  .edu-period { font-size: 11px; color: var(--accent); letter-spacing: .1em; margin-bottom: 8px; }
+  .edu-degree {
+    font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700;
+    color: var(--text); margin-bottom: 4px;
+  }
+  .edu-school { font-size: 12px; color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 40px 80px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-brand {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 14px; color: var(--accent);
+  }
+  .footer-copy { font-size: 12px; color: var(--muted); }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate { animation: fadeUp .6s ease forwards; }
+  .d1 { animation-delay: .1s; }
+  .d2 { animation-delay: .25s; }
+  .d3 { animation-delay: .4s; }
+  .d4 { animation-delay: .55s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links { gap: 16px; }
+    section, #hero { padding: 80px 24px; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 28px; }
+    footer { padding: 32px 24px; }
+    .hero-inner { flex-direction: column-reverse; gap: 40px; }
+    .photo-frame { width: 160px; height: 190px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">PCA_</a>
+  <ul class="nav-links">
+    <li><a href="#competencies">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-inner">
+    <!-- LEFT: text content -->
+    <div class="hero-content">
+      <p class="hero-label animate d1">Principal Cloud Architect &amp; SRE Lead</p>
+      <h1 class="animate d2">Building<br /><span>Resilient</span><br />Cloud at Scale</h1>
+      <p class="hero-sub animate d3">
+        20+ years designing fault-tolerant, highly available architectures across AWS and Azure.
+        Specialising in zero-trust security, SRE adoption, platform modernisation,
+        and cost optimisation for global enterprises.
+      </p>
+      <div class="hero-ctas animate d4">
+        <a href="#experience" class="btn btn-primary">View Experience ↓</a>
+        <a href="#projects" class="btn btn-outline">Flagship Projects</a>
+      </div>
+      <div class="hero-stats animate d4">
+        <div class="stat-item">
+          <span class="stat-num">20+</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">200+</span>
+          <span class="stat-label">Apps DR-Covered</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">40%</span>
+          <span class="stat-label">MTTR Reduction</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">30%</span>
+          <span class="stat-label">Ops Overhead Cut</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: photo -->
+    <div class="hero-photo-col animate d2">
+      <div class="photo-frame">
+        <div class="photo-corner tl"></div>
+        <div class="photo-corner tr"></div>
+        <div class="photo-corner bl"></div>
+        <div class="photo-corner br"></div>
+        <img src="YOUR_PHOTO_PATH_HERE" alt="Profile Photo" />
+      </div>
+      <p class="photo-caption">Principal Cloud Architect</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETENCIES -->
+<section id="competencies">
+  <div class="section-header">
+    <p class="section-tag">Core Competencies</p>
+    <h2>Technical Expertise</h2>
+  </div>
+  <div class="comp-grid">
+    <div class="comp-card">
+      <div class="comp-icon">☁️</div>
+      <div class="comp-title">Cloud Architecture</div>
+      <div class="comp-desc">AWS, Azure, Hybrid Cloud, Multi-Account Landing Zones, Control Tower, Well-Architected Framework</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">🔁</div>
+      <div class="comp-title">SRE &amp; Reliability</div>
+      <div class="comp-desc">SLIs/SLOs, Error Budgets, Observability stacks, MTTR Reduction, self-healing systems</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">🏗️</div>
+      <div class="comp-title">Infrastructure as Code</div>
+      <div class="comp-desc">Terraform, CloudFormation, Ansible — automated SDLC across multi-cloud environments</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">🛡️</div>
+      <div class="comp-title">Disaster Recovery</div>
+      <div class="comp-desc">Azure Site Recovery, RTO/RPO Design, DR Runbooks, automated failover plans</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">⚡</div>
+      <div class="comp-title">High Availability</div>
+      <div class="comp-desc">Multi-AZ, Auto Scaling Groups, ELB, Zero-Downtime Deployments, DNS-based failover</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">🔒</div>
+      <div class="comp-title">Security &amp; Compliance</div>
+      <div class="comp-desc">Zero-trust IAM, Checkmarx scanning, Policy Governance, Regulatory Compliance frameworks</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">🔄</div>
+      <div class="comp-title">CI/CD &amp; Automation</div>
+      <div class="comp-desc">Pipeline Design, Vulnerability Scanning, Deployment Automation, rollback strategies</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">💰</div>
+      <div class="comp-title">Cost Optimisation</div>
+      <div class="comp-desc">Reserved Instances, Savings Plans, TCO Reduction, infrastructure footprint analysis</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <p class="section-tag">Professional Experience</p>
+    <h2>Career History</h2>
+  </div>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-meta">
+        <span class="tl-period">Jan 2018 – Present</span>
+        <span class="tl-company">Tata Consultancy Services (TCS)</span>
+      </div>
+      <div class="tl-role">Principal Cloud Architect &amp; SRE Lead</div>
+      <ul class="tl-bullets">
+        <li>Established <strong>SRE culture</strong> across mission-critical platforms — defined SLIs, SLOs, and error budgets enabling data-driven reliability governance.</li>
+        <li>Reduced operational overhead by <strong>30%</strong> by automating SDLC workflows using Terraform and Ansible across multi-cloud environments.</li>
+        <li>Implemented proactive observability using <strong>Azure Monitor, CloudWatch, and OpenSearch</strong>, reducing MTTR by 40%.</li>
+        <li>Architected end-to-end migration of <strong>Order-to-Cash applications</strong> to AWS, covering 100+ application dependency maps.</li>
+        <li>Designed secure <strong>multi-account AWS landing zones</strong> using AWS Control Tower with centralised IAM, logging, and governance.</li>
+        <li>Led enterprise <strong>DR program</strong> covering 200+ business-critical applications using Azure Site Recovery (ASR).</li>
+        <li>Consolidated 4 enterprise datacenters into 2 centralised environments using VMware, EMC, Vblock, and HP BladeSystem.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-meta">
+        <span class="tl-period">Jan 2011 – Jan 2018</span>
+        <span class="tl-company">Infosys</span>
+      </div>
+      <div class="tl-role">Senior Cloud Infrastructure Engineer</div>
+      <ul class="tl-bullets">
+        <li>Managed <strong>Azure infrastructure</strong> (compute, storage, networking) across hybrid environments ensuring SLA compliance.</li>
+        <li>Led <strong>hardware modernisation</strong> and SAN implementation, optimised backup windows and reduced storage footprint.</li>
+        <li>Supported global datacenter operations, migrations, and enterprise infrastructure transitions.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-meta">
+        <span class="tl-period">Jan 2009 – Jan 2011</span>
+        <span class="tl-company">HSBC</span>
+      </div>
+      <div class="tl-role">Storage &amp; Backup Administrator</div>
+      <ul class="tl-bullets">
+        <li>Managed enterprise storage and backup systems ensuring <strong>high availability</strong> and data protection across banking infrastructure.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-meta">
+        <span class="tl-period">Jan 2005 – Jan 2009</span>
+        <span class="tl-company">CSC (Computer Sciences Corporation)</span>
+      </div>
+      <div class="tl-role">Storage &amp; Backup Administrator</div>
+      <ul class="tl-bullets">
+        <li>Maintained enterprise backup and storage environments, supported <strong>recovery operations</strong> and system monitoring.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <p class="section-tag">Flagship Architecture Projects</p>
+    <h2>Key Deliverables</h2>
+  </div>
+  <div class="proj-grid">
+
+    <div class="proj-card">
+      <div class="proj-num">01 / AWS</div>
+      <div class="proj-title">Cloud Modernisation &amp; Migration</div>
+      <div class="proj-desc">
+        Designed secure multi-account landing zones using AWS Control Tower with centralised governance and logging.
+        Achieved zero data loss through Multi-AZ architecture and DNS sticky routing.
+        Reduced infrastructure costs through Reserved Instances and Savings Plans optimisation.
+      </div>
+      <div class="proj-tags">
+        <span class="tag hi">AWS Control Tower</span>
+        <span class="tag hi">Multi-AZ</span>
+        <span class="tag">Direct Connect</span>
+        <span class="tag">VPN</span>
+        <span class="tag">IAM</span>
+        <span class="tag">Well-Architected</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-num">02 / Azure</div>
+      <div class="proj-title">Enterprise Disaster Recovery Transformation</div>
+      <div class="proj-desc">
+        Led enterprise-wide DR program for 200+ critical applications using Azure Site Recovery with deep-tier recovery mapping.
+        Designed automated recovery plans integrating Identity (AD / Azure AD Connect) and Backup.
+        Achieved full regulatory compliance with clearly defined RTO/RPO for all workload tiers.
+      </div>
+      <div class="proj-tags">
+        <span class="tag hi">Azure Site Recovery</span>
+        <span class="tag hi">Azure AD Connect</span>
+        <span class="tag">RTO/RPO</span>
+        <span class="tag">VNet</span>
+        <span class="tag">Failover Automation</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-num">03 / SRE</div>
+      <div class="proj-title">SRE Platform Design for WNS</div>
+      <div class="proj-desc">
+        Architected highly available platform using Auto Scaling and Multi-AZ; achieved 99.9% availability SLA.
+        Implemented SLI/SLO-driven monitoring with error budget governance.
+        Built self-healing systems using Lambda and CloudWatch; reduced MTTR by 40%.
+      </div>
+      <div class="proj-tags">
+        <span class="tag hi">SLI/SLO</span>
+        <span class="tag hi">Lambda</span>
+        <span class="tag">CloudWatch</span>
+        <span class="tag">OpenSearch</span>
+        <span class="tag">Auto Scaling</span>
+        <span class="tag">CI/CD</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-header">
+    <p class="section-tag">Certifications</p>
+    <h2>Industry Credentials</h2>
+  </div>
+  <div class="cert-grid">
+    <div class="cert-card">
+      <div class="cert-badge">🏅</div>
+      <div class="cert-name">AWS Solutions Architect — Professional</div>
+      <div class="cert-issuer">Amazon Web Services</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">🏅</div>
+      <div class="cert-name">AWS Solutions Architect — Associate</div>
+      <div class="cert-issuer">Amazon Web Services</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">🏅</div>
+      <div class="cert-name">Azure Solutions Architect Expert</div>
+      <div class="cert-issuer">Microsoft Azure</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-badge">🏅</div>
+      <div class="cert-name">ITIL Foundation</div>
+      <div class="cert-issuer">AXELOS</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <p class="section-tag">Education</p>
+    <h2>Academic Background</h2>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-period">2002 – 2005</div>
+      <div class="edu-degree">Master of Computer Applications (MCA)</div>
+      <div class="edu-school">Andhra University</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-period">1999 – 2002</div>
+      <div class="edu-degree">Bachelor of Computer Science (B.Sc)</div>
+      <div class="edu-school">Andhra University</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">PCA_ // Principal Cloud Architect</span>
+  <span class="footer-copy">20+ years · AWS · Azure · SRE · Zero-Trust</span>
+</footer>
+
+<script>
+  // Intersection Observer for subtle scroll-in effects
+  const cards = document.querySelectorAll('.comp-card, .proj-card, .cert-card, .edu-card, .tl-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  cards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(card);
+  });
+</script>
+</body>
+</html>
