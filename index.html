@@ -709,5 +709,13 @@
     observer.observe(card);
   });
 </script>
+  <script>
+  // Forces the page to refresh if loaded via the back button or navigation history
+  window.onpageshow = function(event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  };
+</script>
 </body>
 </html>
